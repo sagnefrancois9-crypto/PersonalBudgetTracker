@@ -5,14 +5,15 @@
     <id>UMLClass</id>
     <coordinates>
       <x>320</x>
-      <y>470</y>
-      <w>160</w>
-      <h>70</h>
+      <y>450</y>
+      <w>170</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>Compte
 --
 id_compte:INTEGER
-solde: REAL</panel_attributes>
+solde: REAL
+moncompte:TEXT</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -66,14 +67,14 @@ type_categorie: TEXT
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>470</x>
+      <x>480</x>
       <y>490</y>
-      <w>230</w>
+      <w>220</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m2=0..n</panel_attributes>
-    <additional_attributes>10.0;10.0;210.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
