@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -33,7 +34,7 @@ void MainWindow::initialiserBaseDeDonnees(){
     // Table des Comptes
     query.exec("CREATE TABLE IF NOT EXISTS comptes ("
                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-               "nom TEXT NOT NULL, "
+               "nom TEXT UNIQUE NOT NULL, "
                "solde_initial REAL NOT NULL)");
 
     // Table des Catégories
@@ -58,3 +59,31 @@ void MainWindow::initialiserBaseDeDonnees(){
                "compte_id INTEGER NOT NULL, "
                "categorie_id INTEGER NOT NULL)");
 }
+
+// ajouter compte
+void MainWindow::on_pushButton_3_clicked()
+{
+    QString nom=ui->lineEdit_2->text();
+    if (nom.isEmpty()){
+        QMessageBox::warning(this, "Attention", "Le nom du compte ne peut pas être vide.");
+        return ;
+    }
+    QSqlQuery query;
+    query.prepare("INSERT INTO comptes (nom, solde_initial) VALUES (:nom_compte, :solde)");
+
+    query.bindValue(":nom_compte",nom);
+    query.bindValue(":solde",ui->doubleSpinBox_3->value());
+
+    if (!query.exec()) {
+        // La règle UNIQUE a bloqué l'insertion (ou autre erreur SQL)
+        QMessageBox::critical(this, "Erreur", "Impossible d'ajouter ce compte. Il existe peut-être déjà.");
+    } else {
+        // Succès
+        QMessageBox::information(this, "Succès", "Compte ajouté avec succès !");
+
+        //On vide les champs pour la prochaine saisie
+        ui->lineEdit_2->clear();
+        ui->doubleSpinBox_3->setValue(0.0);
+    }
+}
+
