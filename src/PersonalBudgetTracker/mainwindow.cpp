@@ -17,8 +17,8 @@ MainWindow::~MainWindow()
 void MainWindow::initialiserBaseDeDonnees(){
 
     // creation du fichier SQLite
-    QSqlDatabase db= QSqlDatabase::addDataBase("QSQLITE");
-    db.setDataBaseName("budget.db");
+    QSqlDatabase db= QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("budget.db");
 
     if (!db.open()){
         qDebug() << "Erreur : impossible d'ouvrir la base de donnees" << db.lastError().text();
